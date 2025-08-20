@@ -6,4 +6,8 @@ import java.util.*;
 
 public class AthleteService {
     private final DynamoDbClient ddb;
+
+    public AthleteService(DynamoDbClient client) {
+        this.ddb = client;
+    }
 }

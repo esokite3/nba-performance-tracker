@@ -1,7 +1,7 @@
 package com.example;
 
 public class AthleteProfile {
-    private String athleteId;
+    private int athleteId;
 
     // initialize athlete profile variables
     private String athleteName;
@@ -12,7 +12,7 @@ public class AthleteProfile {
     private int athleteWeight;
 
     // constructor
-    public AthleteProfile(String athleteId, String athleteName, String athleteTeam, String athletePosition,
+    public AthleteProfile(int athleteId, String athleteName, String athleteTeam, String athletePosition,
                         int athleteJerseyNum, int athleteHeight, int athleteWeight) {
         
         this.athleteId = athleteId;
@@ -25,8 +25,8 @@ public class AthleteProfile {
     }
     
     // athleteId get/set
-    public String getAthleteId() { return athleteId; }
-    public void setAthleteId(String athleteId) { this.athleteId = athleteId; }
+    public int getAthleteId() { return athleteId; }
+    public void setAthleteId(int athleteId) { this.athleteId = athleteId; }
 
     // athleteName get/set
     public String getAthleteName() { return athleteName; }

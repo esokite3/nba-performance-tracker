@@ -1,7 +1,7 @@
 package com.example;
 
 public class AthleteLastFive {
-    private String athleteId;
+    private int athleteId;
 
     // initialize athlete last five game variables
     private int[] lastPoints = new int[5];
@@ -12,13 +12,13 @@ public class AthleteLastFive {
     private int[] lastTPP = new int[5]; // TPP: three point percentage
 
     // constructor
-    public AthleteLastFive(String athleteId) {
+    public AthleteLastFive(int athleteId) {
         this.athleteId = athleteId;
     }
 
     // athleteId get/set
-    public String getAthleteId() { return athleteId; }
-    public void setAthleteId(String athleteId) { this.athleteId = athleteId; }
+    public int getAthleteId() { return athleteId; }
+    public void setAthleteId(int athleteId) { this.athleteId = athleteId; }
     
     // lastPoints get/set
     public int[] getLastPoints() { return lastPoints; }

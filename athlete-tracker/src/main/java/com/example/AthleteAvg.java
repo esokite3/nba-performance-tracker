@@ -1,7 +1,7 @@
 package com.example;
 
 public class AthleteAvg {
-    private String athleteId;
+    private int athleteId;
     // initialize average stats variables
 
     private int athletePPG; // PPG: points per game
@@ -12,7 +12,7 @@ public class AthleteAvg {
     private int athleteAvgTPP; // TPP: three-point percentage
 
     // constructor
-    public AthleteAvg(String athleteId, int athletePPG, int athleteRPG, int athleteAPG, 
+    public AthleteAvg(int athleteId, int athletePPG, int athleteRPG, int athleteAPG, 
                     int athleteSPG, int athleteAvgFTP, int athleteAvgTPP) {
 
         this.athleteId = athleteId;
@@ -25,8 +25,8 @@ public class AthleteAvg {
     }
 
     // athleteId get/ste
-    public String getAthleteId() { return athleteId; }
-    public void setAthleteId(String athleteId) { this.athleteId = athleteId; }
+    public int getAthleteId() { return athleteId; }
+    public void setAthleteId(int athleteId) { this.athleteId = athleteId; }
 
     // athletePPG get/set
     public int getAthletePPG() { return athletePPG; }

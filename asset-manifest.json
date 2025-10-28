@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/nba-performance-tracker/static/css/main.f855e6bc.css",
+    "main.js": "/nba-performance-tracker/static/js/main.7257aee3.js",
+    "index.html": "/nba-performance-tracker/index.html",
+    "main.f855e6bc.css.map": "/nba-performance-tracker/static/css/main.f855e6bc.css.map",
+    "main.7257aee3.js.map": "/nba-performance-tracker/static/js/main.7257aee3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f855e6bc.css",
+    "static/js/main.7257aee3.js"
+  ]
+}

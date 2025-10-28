@@ -12,7 +12,7 @@ public class AthleteService {
         this.ddb = client;
     }
 
-    // create profile
+    // Create profile
     public void createAthleteProfile(int athleteId, String athleteName, String athleteTeam, 
                                     String athletePosition, int athleteJerseyNum, int athleteHeight, int athleteWeight) {
         Map<String, AttributeValue> item = new HashMap<>();
@@ -30,7 +30,7 @@ public class AthleteService {
                     .build());
     }
 
-    // create athlete avg stats
+    // Create athlete avg stats
     public void createAthleteAvg(int athleteId, int athletePPG, int athleteRPG, int athleteAPG, 
                     int athleteSPG, int athleteAvgFTP, int athleteAvgTPP) {
         Map<String, AttributeValue> item = new HashMap<>();
@@ -65,6 +65,34 @@ public class AthleteService {
                     .item(item)
                     .build());
     }
-}
 
-// ADD READ METHODS
+    // Get athlete profile by ID
+    public Map<String, AttributeValue> getAthleteProfile(int athleteId) {
+    GetItemRequest request = GetItemRequest.builder()
+        .tableName("AthleteProfile")
+        .key(Map.of("AthleteID", AttributeValue.builder().n(Integer.toString(athleteId)).build()))
+        .build();
+    GetItemResponse response = ddb.getItem(request);
+    return response.item();
+    }
+
+    // get athlete average stats by ID
+    public Map<String, AttributeValue> getAthleteAvg(int athleteId) {
+        GetItemRequest request = GetItemRequest.builder()
+            .tableName("AthleteAvg")
+            .key(Map.of("AthleteID", AttributeValue.builder().n(Integer.toString(athleteId)).build()))
+            .build();
+        GetItemResponse response = ddb.getItem(request);
+        return response.item();
+    }
+
+    // Get athlete last five stats by ID
+    public Map<String, AttributeValue> getAthleteLastFive(int athleteId) {
+        GetItemRequest request = GetItemRequest.builder()
+            .tableName("AthleteLastFive")
+            .key(Map.of("AthleteID", AttributeValue.builder().n(Integer.toString(athleteId)).build()))
+            .build();
+        GetItemResponse response = ddb.getItem(request);
+        return response.item();
+    }
+}

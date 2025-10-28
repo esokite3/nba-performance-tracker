@@ -37,7 +37,7 @@ public class AthleteAvg {
     public void setAthleteRPG(int athleteRPG) { this.athleteRPG = athleteRPG; }
 
     // athleteAPG get/set
-    public int getAthleteAP() { return athleteAPG;}
+    public int getAthleteAPG() { return athleteAPG;}
     public void getAthleteAPG(int athleteAPG) { this.athleteAPG = athleteAPG; }
 
     // athleteSPG get/set

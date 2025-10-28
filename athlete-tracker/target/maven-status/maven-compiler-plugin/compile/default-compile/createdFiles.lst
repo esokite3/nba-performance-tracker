@@ -1,8 +1,0 @@
-com/example/DynamoDBClientProvider.class
-com/example/AthleteAvg.class
-com/example/AthleteService.class
-com/example/AthleteTracker.class
-com/example/AthleteProfile.class
-com/example/AthleteLastFive.class
-com/example/Main.class
-com/example/TableCreator.class

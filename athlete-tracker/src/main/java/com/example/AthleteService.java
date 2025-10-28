@@ -95,4 +95,20 @@ public class AthleteService {
         GetItemResponse response = ddb.getItem(request);
         return response.item();
     }
+
+    // Get athlete profile by name
+    public Map<String, AttributeValue> getAthleteProfileByName(String name) {
+        ScanRequest scanRequest = ScanRequest.builder()
+            .tableName("AthleteProfile")
+            .filterExpression("Name = :name")
+            .expressionAttributeValues(Map.of(":name", AttributeValue.builder().s(name).build()))
+            .build();
+
+        ScanResponse response = ddb.scan(scanRequest);
+
+        if (response.count() > 0) {
+            return response.items().get(0);
+        }
+        return null;
+    }
 }

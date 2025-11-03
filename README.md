@@ -1,6 +1,6 @@
 # Clippers Stats Tracker
 A full-stack web application for tracking Clippers player statistics. Search for players and view their profile information, career averages, and recent game performance.
-![Clippers Logo](frontend/public/clippers-logo.png)
+![Clippers Logo](athlete-tracker/frontend/public/clippers-logo.png)
 
 ## Features
 - Real-time player statistics lookup

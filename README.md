@@ -2,7 +2,7 @@
 A full-stack web application for tracking Clippers player statistics. Search for players and view their profile information, career averages, and recent game performance.
 
 <p align="center">
-  <img src="public/clippers-logo.png" width="150" alt="Clippers Logo">
+  <img src="athlete-tracker/frontend/public/clippers-logo.png" width="150" alt="Clippers Logo">
 </p>
 
 ## Features

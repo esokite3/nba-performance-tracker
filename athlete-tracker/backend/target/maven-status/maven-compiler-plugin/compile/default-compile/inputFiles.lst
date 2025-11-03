@@ -3,6 +3,7 @@
 /Users/caitlynlee/nba-performance-tracker/athlete-tracker/backend/src/main/java/com/example/AthleteProfile.java
 /Users/caitlynlee/nba-performance-tracker/athlete-tracker/backend/src/main/java/com/example/AthleteService.java
 /Users/caitlynlee/nba-performance-tracker/athlete-tracker/backend/src/main/java/com/example/AthleteTracker.java
-/Users/caitlynlee/nba-performance-tracker/athlete-tracker/backend/src/main/java/com/example/DynamoDBClientProvider.java
 /Users/caitlynlee/nba-performance-tracker/athlete-tracker/backend/src/main/java/com/example/Main.java
-/Users/caitlynlee/nba-performance-tracker/athlete-tracker/backend/src/main/java/com/example/TableCreator.java
+/Users/caitlynlee/nba-performance-tracker/athlete-tracker/backend/src/main/java/com/example/config/DynamoDBClientProvider.java
+/Users/caitlynlee/nba-performance-tracker/athlete-tracker/backend/src/main/java/com/example/config/WebConfig.java
+/Users/caitlynlee/nba-performance-tracker/athlete-tracker/backend/src/main/java/com/example/controller/AthleteController.java

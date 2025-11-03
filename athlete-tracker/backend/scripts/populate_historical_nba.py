@@ -3,6 +3,7 @@ from nba_api.stats.endpoints import commonteamroster, playercareerstats, playerg
 import boto3
 import time
 import math
+from datetime import datetime
 
 # Configure DynamoDB
 dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
@@ -22,15 +23,29 @@ TABLE_PROFILE = dynamodb.Table('AthleteProfile')
 TABLE_AVG = dynamodb.Table('AthleteAvg')
 TABLE_LAST5 = dynamodb.Table('AthleteLastFive')
 
+# Determine current NBA season dynamically
+current_year = datetime.now().year
+current_month = datetime.now().month
+
+# NBA season starts in October, so if we're before October, use previous year
+if current_month < 10:
+    season_start = current_year - 1
+else:
+    season_start = current_year
+
+season_string = f"{season_start}-{str(season_start + 1)[-2:]}"
+print(f"Using season: {season_string}")
+
 # Get Clippers team ID and fetch roster
 clippers = [team for team in teams.get_teams() if team['abbreviation'] == 'LAC'][0]
-roster = commonteamroster.CommonTeamRoster(team_id=clippers['id'], season='2024-25')
+roster = commonteamroster.CommonTeamRoster(team_id=clippers['id'], season=season_string)
 clippers_players = roster.get_data_frames()[0].to_dict('records')
 print(f"Total Clippers players to populate: {len(clippers_players)}")
 
 for player in clippers_players:
     player_id = player['PLAYER_ID']
     full_name = player['PLAYER']
+    print(f"\nProcessing: {full_name} (ID: {player_id})")
 
     # Athlete Profile
     profile_item = {
@@ -44,8 +59,9 @@ for player in clippers_players:
     }
     try:
         TABLE_PROFILE.put_item(Item=profile_item)
+        print(f"  ✓ Profile saved")
     except Exception as e:
-        print(f"Error inserting profile for {full_name}: {e}")
+        print(f"  ✗ Error inserting profile: {e}")
 
     # Athlete Average (career stats)
     try:
@@ -76,7 +92,8 @@ for player in clippers_players:
             if row['FG3_PCT'] is not None:
                 season_stats[season]['FG3_PCT'].append(row['FG3_PCT'])
         
-        # Write aggregated stats - write individually to avoid batch duplicates
+        # Write aggregated stats
+        seasons_written = 0
         for season, stats in season_stats.items():
             avg_item = {
                 'AthleteID': player_id,
@@ -89,10 +106,12 @@ for player in clippers_players:
                 'athleteAvgTPP': safe_int(sum(stats['FG3_PCT']) / len(stats['FG3_PCT']) * 100) if stats['FG3_PCT'] else 0
             }
             TABLE_AVG.put_item(Item=avg_item)
+            seasons_written += 1
+        print(f"  ✓ Saved {seasons_written} season(s) of stats")
     except Exception as e:
-        print(f"Error fetching season stats for {full_name}: {e}")
+        print(f"  ✗ Error fetching season stats: {e}")
 
-    # Athlete Last Five Games (2024-25 Regular Season)
+    # Athlete Last Five Games (current season)
     last_points = [0] * 5
     last_rebounds = [0] * 5
     last_assists = [0] * 5
@@ -103,11 +122,12 @@ for player in clippers_players:
     try:
         gamelog = playergamelog.PlayerGameLog(
             player_id=player_id,
-            season='2024-25',
+            season=season_string,  # Use dynamic season
             season_type_all_star='Regular Season'
         )
         df_games = gamelog.get_data_frames()[0].head(5)
 
+        games_found = len(df_games)
         for i, (_, row) in enumerate(df_games.iterrows()):
             last_points[i] = safe_int(row['PTS'])
             last_rebounds[i] = safe_int(row['REB'])
@@ -115,8 +135,10 @@ for player in clippers_players:
             last_steals[i] = safe_int(row['STL'])
             last_ftp[i] = safe_int(row['FT_PCT'] * 100) if row['FT_PCT'] is not None else 0
             last_tpp[i] = safe_int(row['FG3_PCT'] * 100) if row['FG3_PCT'] is not None else 0
+        
+        print(f"  ✓ Found {games_found} recent game(s)")
     except Exception as e:
-        print(f"No recent games found for {full_name} in this season: {e}")
+        print(f"  ⚠ No recent games found in {season_string}: {e}")
 
     last5_item = {
         'AthleteID': player_id,
@@ -129,9 +151,12 @@ for player in clippers_players:
     }
     try:
         TABLE_LAST5.put_item(Item=last5_item)
+        print(f"  ✓ Last 5 games saved")
     except Exception as e:
-        print(f"Error inserting last 5 games for {full_name}: {e}")
+        print(f"  ✗ Error inserting last 5 games: {e}")
 
-    time.sleep(0.2)  # small delay to avoid hitting rate limits
+    time.sleep(0.6)  # Increased delay to avoid rate limits
 
+print("\n" + "="*50)
 print("All Clippers player tables populated successfully.")
+print("="*50)

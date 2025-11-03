@@ -28,6 +28,13 @@
   color: #61dafb;
 }
 
+.App img {
+  width: 125px;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +42,13 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+button {
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+button.active-click {
+  transform: scale(0.95);
+  opacity: 0.7;
 }

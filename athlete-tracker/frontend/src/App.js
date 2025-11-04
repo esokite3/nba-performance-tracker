@@ -22,7 +22,7 @@ function App() {
     return `${feet}'${remainingInches}"`;
   }
 
-  const HEROKU_URL ="https://clips-stats-tracker.herokuapp.com"
+  const HEROKU_URL ="https://clips-stats-tracker-b9a0ec87d561.herokuapp.com"
 
   const handleSearch = async () => {
     if (!playerName.trim()) {

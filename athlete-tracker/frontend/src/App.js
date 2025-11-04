@@ -22,6 +22,8 @@ function App() {
     return `${feet}'${remainingInches}"`;
   }
 
+  const HEROKU_URL ="https://clips-stats-tracker.herokuapp.com"
+
   const handleSearch = async () => {
     if (!playerName.trim()) {
       alert("Please enter a player name.");
@@ -29,7 +31,7 @@ function App() {
     }
 
     const response = await fetch(
-      `/api/player?name=${formatName(playerName)}`
+      `${HEROKU_URL}/api/player?name=${formatName(playerName)}`
     );
 
     if (!response.ok) {

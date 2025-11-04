@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
                 // ADD YOUR VERCEL DOMAIN HERE:
                 .allowedOrigins(
                     "http://localhost:3000", 
-                    "clips-stat-tracker-git-main-caitlyns-projects-4dbc852e.vercel.app"
+                    "https://clips-stat-tracker-git-main-caitlyns-projects-4dbc852e.vercel.app"
                 ) 
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*");

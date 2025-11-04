@@ -9,10 +9,12 @@ public class WebConfig implements WebMvcConfigurer {
     
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        // IMPORTANT: Replace 'YOUR-VERCEL-FRONTEND-URL.vercel.app' 
-        // with the actual URL of your deployed Vercel frontend!
         registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:3000", "https://clips-stat-tracker.vercel.app/") 
+                // ADD YOUR VERCEL DOMAIN HERE:
+                .allowedOrigins(
+                    "http://localhost:3000", 
+                    "https://clips-stat-tracker-caitlyns-projects-d0c852e.vercel.app"
+                ) 
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*");
     }

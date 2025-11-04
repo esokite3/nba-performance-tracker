@@ -29,7 +29,7 @@ function App() {
     }
 
     const response = await fetch(
-      `http://localhost:8080/api/player?name=${formatName(playerName)}`
+      `/api/player?name=${formatName(playerName)}`
     );
 
     if (!response.ok) {

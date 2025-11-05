@@ -1,5 +1,6 @@
 # Clippers Stats Tracker
 A full-stack web application for tracking Clippers player statistics. Search for players and view their profile information, career averages, and recent game performance.
+Deployed at: https://clips-stats-tracker.vercel.app
 
 <p align="center">
   <img src="athlete-tracker/frontend/public/clippers-logo.png" width="150" alt="Clippers Logo">
@@ -57,4 +58,5 @@ A full-stack web application for tracking Clippers player statistics. Search for
 - [ ] Predictive modeling (e.g., predicting retirement age)
 
 ## Author
+
 Caitlyn Lee - https://www.github.com/esokite3

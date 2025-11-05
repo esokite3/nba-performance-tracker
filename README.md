@@ -1,5 +1,5 @@
 # Clippers Stats Tracker
-A full-stack web application for tracking Clippers player statistics. Search for players and view their profile information, career averages, and recent game performance.\n
+A full-stack web application for tracking Clippers player statistics. Search for players and view their profile information, career averages, and recent game performance.<br>
 Deployed at: https://clips-stats-tracker.vercel.app
 
 <p align="center">
@@ -60,4 +60,5 @@ Deployed at: https://clips-stats-tracker.vercel.app
 ## Author
 
 Caitlyn Lee - https://www.github.com/esokite3
+
 

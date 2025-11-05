@@ -45,15 +45,27 @@ def update_last_five_games():
     season_string = f"{season_start}-{str(season_start + 1)[-2:]}"
     print(f"Season: {season_string}")
     
-    # Get Clippers roster
-    try:
-        clippers = [team for team in teams.get_teams() if team['abbreviation'] == 'LAC'][0]
-        roster = commonteamroster.CommonTeamRoster(team_id=clippers['id'], season=season_string)
-        clippers_players = roster.get_data_frames()[0].to_dict('records')
-        print(f"Found {len(clippers_players)} Clippers players\n")
-    except Exception as e:
-        print(f"Error fetching roster: {e}")
-        return
+    # Get Clippers roster with retry logic
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            clippers = [team for team in teams.get_teams() if team['abbreviation'] == 'LAC'][0]
+            roster = commonteamroster.CommonTeamRoster(
+                team_id=clippers['id'], 
+                season=season_string,
+                timeout=60  # Increase timeout to 60 seconds
+            )
+            clippers_players = roster.get_data_frames()[0].to_dict('records')
+            print(f"Found {len(clippers_players)} Clippers players\n")
+            break
+        except Exception as e:
+            print(f"Attempt {attempt + 1}/{max_retries} failed: {e}")
+            if attempt < max_retries - 1:
+                print("Retrying in 5 seconds...")
+                time.sleep(5)
+            else:
+                print("Max retries reached. Exiting.")
+                return
     
     updated_count = 0
     failed_count = 0
@@ -71,11 +83,12 @@ def update_last_five_games():
             last_ftp = [0] * 5
             last_tpp = [0] * 5
             
-            # Fetch game log
+            # Fetch game log with timeout
             gamelog = playergamelog.PlayerGameLog(
                 player_id=player_id,
                 season=season_string,
-                season_type_all_star='Regular Season'
+                season_type_all_star='Regular Season',
+                timeout=60
             )
             df_games = gamelog.get_data_frames()[0].head(5)
             

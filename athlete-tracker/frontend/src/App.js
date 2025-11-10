@@ -65,7 +65,8 @@ function App() {
   return (
     <div className="App">
       <img src={process.env.PUBLIC_URL + '/clippers-logo.png'} alt='Clippers Logo' />
-      <h1>Stats Tracker</h1>
+      <img className="typography" src={process.env.PUBLIC_URL + '/clippers-typo.png'} alt='Clippers Typography' />
+      <h1 className="stats-title">STATS TRACKER</h1>
 
       <form onSubmit={handleSubmit}>
         <input
@@ -88,30 +89,30 @@ function App() {
           <h2>{playerStats.profile.Name}</h2>
 
           <h3>Player Profile</h3>
-          <p>Team: {playerStats.profile.Team}</p>
-          <p>Position: {playerStats.profile.Position}</p>
-          <p>Jersey: {playerStats.profile.JerseyNumber > 0 ? playerStats.profile.JerseyNumber : "N/A"}</p>
-          <p>Height: {formatHeight(playerStats.profile.Height)}</p>
-          <p>Weight: {playerStats.profile.Weight > 0 ? `${playerStats.profile.Weight} lbs` : "N/A"}</p>
+          <p><span>Team: {playerStats.profile.Team}</span></p>
+          <p><span>Position: {playerStats.profile.Position}</span></p>
+          <p><span>Jersey: {playerStats.profile.JerseyNumber > 0 ? playerStats.profile.JerseyNumber : "N/A"}</span></p>
+          <p><span>Height: {formatHeight(playerStats.profile.Height)}</span></p>
+          <p><span>Weight: {playerStats.profile.Weight > 0 ? `${playerStats.profile.Weight} lbs` : "N/A"}</span></p>
 
           <h3>Career Averages</h3>
-          <p>PTS: {playerStats.avg.PPG}</p>
-          <p>RBS: {playerStats.avg.RPG}</p>
-          <p>AST: {playerStats.avg.APG}</p>
-          <p>STL: {playerStats.avg.SPG}</p>
+          <p><span>PTS: {playerStats.avg.PPG}</span></p>
+          <p><span>RBS: {playerStats.avg.RPG}</span></p>
+          <p><span>AST: {playerStats.avg.APG}</span></p>
+          <p><span>STL: {playerStats.avg.SPG}</span></p>
 
           <h3>Last 5 Games (2025–2026 Season)</h3>
           {hasGameData(playerStats.lastFive.LastPoints) ? (
             <>
-              <p>PTS: {playerStats.lastFive.LastPoints.join(", ")}</p>
-              <p>RBS: {playerStats.lastFive.LastRebounds.join(", ")}</p>
-              <p>AST: {playerStats.lastFive.LastAssists.join(", ")}</p>
-              <p>STL: {playerStats.lastFive.LastSteals.join(", ")}</p>
-              <p>FT%: {playerStats.lastFive.LastFTP.join(", ")}</p>
-              <p>3P%: {playerStats.lastFive.LastTPP.join(", ")}</p>
+              <p><span>PTS: {playerStats.lastFive.LastPoints.join(", ")}</span></p>
+              <p><span>RBS: {playerStats.lastFive.LastRebounds.join(", ")}</span></p>
+              <p><span>AST: {playerStats.lastFive.LastAssists.join(", ")}</span></p>
+              <p><span>STL: {playerStats.lastFive.LastSteals.join(", ")}</span></p>
+              <p><span>FT%: {playerStats.lastFive.LastFTP.join(", ")}</span></p>
+              <p><span>3P%: {playerStats.lastFive.LastTPP.join(", ")}</span></p>
             </>
           ) : (
-            <p style={{fontStyle: "italic", color: "#666"}}>
+            <p className="no-data" style={{fontStyle: "italic", color: "#666"}}>
               No games played yet this season
             </p>
           )}

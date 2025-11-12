@@ -35,6 +35,19 @@ def get_current_season():
     return f"{season_start}-{str(season_start + 1)[-2:]}"
 
 
+def retry_api_call(func, max_retries=3, initial_delay=2):
+    """Retry an API call with exponential backoff."""
+    for attempt in range(max_retries):
+        try:
+            return func()
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise
+            delay = initial_delay * (2 ** attempt)
+            print(f"  ⚠️  API call failed (attempt {attempt + 1}/{max_retries}), retrying in {delay}s...")
+            time.sleep(delay)
+
+
 # -----------------------------
 # Update logic
 # -----------------------------
@@ -48,11 +61,15 @@ def update_clippers_data():
         print("Could not find Clippers team in nba_api.")
         sys.exit(1)
 
-    roster = commonteamroster.CommonTeamRoster(
-        team_id=clippers['id'], 
-        season=season_string,
-        timeout=60
-    )
+    # Use retry logic for roster fetch
+    def fetch_roster():
+        return commonteamroster.CommonTeamRoster(
+            team_id=clippers['id'], 
+            season=season_string,
+            timeout=90  # Increased timeout
+        )
+    
+    roster = retry_api_call(fetch_roster)
     players = roster.get_data_frames()[0].to_dict('records')
     print(f"Found {len(players)} Clippers players.")
 
@@ -63,7 +80,13 @@ def update_clippers_data():
 
         # --- Update averages ---
         try:
-            career = playercareerstats.PlayerCareerStats(player_id=player_id)
+            def fetch_career():
+                return playercareerstats.PlayerCareerStats(
+                    player_id=player_id,
+                    timeout=90
+                )
+            
+            career = retry_api_call(fetch_career)
             df = career.get_data_frames()[0]
             df = df[df['TEAM_ID'] != 0]
 
@@ -106,9 +129,15 @@ def update_clippers_data():
 
         # --- Update last 5 games ---
         try:
-            gamelog = playergamelog.PlayerGameLog(
-                player_id=player_id, season=season_string, season_type_all_star="Regular Season"
-            )
+            def fetch_gamelog():
+                return playergamelog.PlayerGameLog(
+                    player_id=player_id, 
+                    season=season_string, 
+                    season_type_all_star="Regular Season",
+                    timeout=90
+                )
+            
+            gamelog = retry_api_call(fetch_gamelog)
             games = gamelog.get_data_frames()[0].head(5)
 
             stats = {
@@ -131,14 +160,14 @@ def update_clippers_data():
                     **stats
                 }
             )
-            print("Updated last 5 games")
+            print("  ✓ Updated last 5 games")
 
         except Exception as e:
-            print(f"Error updating last 5 games: {e}")
+            print(f"  ✗ Error updating last 5 games: {e}")
 
-        time.sleep(0.6)
+        time.sleep(1.0)  # Increased delay between players
 
-    print("\n Daily Clippers update complete!")
+    print("\n✅ Daily Clippers update complete!")
 
 
 if __name__ == "__main__":

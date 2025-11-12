@@ -95,7 +95,7 @@ function App() {
           <p><span>Height: {formatHeight(playerStats.profile.Height)}</span></p>
           <p><span>Weight: {playerStats.profile.Weight > 0 ? `${playerStats.profile.Weight} lbs` : "N/A"}</span></p>
 
-          <h3>Career Averages</h3>
+          <h3>Season Averages</h3>
           <p><span>PTS: {playerStats.avg.PPG}</span></p>
           <p><span>RBS: {playerStats.avg.RPG}</span></p>
           <p><span>AST: {playerStats.avg.APG}</span></p>

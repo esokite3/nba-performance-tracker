@@ -8,7 +8,7 @@ Deployed at: https://clips-stats-tracker.vercel.app
 
 ## Features
 - Real-time player statistics lookup
-- Career averages (Points, Rebounds, Assists, Steals)
+- Season averages (Points, Rebounds, Assists, Steals)
 - Last 5 games performance tracking
 - Player profile information (height, weight, position, jersey number)
 

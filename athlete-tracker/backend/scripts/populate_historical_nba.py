@@ -18,6 +18,15 @@ def safe_int(val):
     except:
         return 0
 
+def safe_float(val, decimals=1):
+    """Safely convert a value to float with specified decimal places."""
+    try:
+        if val is None or (isinstance(val, float) and math.isnan(val)):
+            return 0.0
+        return round(float(val), decimals)
+    except Exception:
+        return 0.0
+    
 # DynamoDB tables
 TABLE_PROFILE = dynamodb.Table('AthleteProfile')
 TABLE_AVG = dynamodb.Table('AthleteAvg')
@@ -98,12 +107,12 @@ for player in clippers_players:
             avg_item = {
                 'AthleteID': player_id,
                 'season': season,
-                'athletePPG': safe_int(stats['PTS'] / stats['GP']) if stats['GP'] > 0 else 0,
-                'athleteRPG': safe_int(stats['REB'] / stats['GP']) if stats['GP'] > 0 else 0,
-                'athleteAPG': safe_int(stats['AST'] / stats['GP']) if stats['GP'] > 0 else 0,
-                'athleteSPG': safe_int(stats['STL'] / stats['GP']) if stats['GP'] > 0 else 0,
-                'athleteAvgFTP': safe_int(sum(stats['FT_PCT']) / len(stats['FT_PCT']) * 100) if stats['FT_PCT'] else 0,
-                'athleteAvgTPP': safe_int(sum(stats['FG3_PCT']) / len(stats['FG3_PCT']) * 100) if stats['FG3_PCT'] else 0
+                'athletePPG': safe_float(stats['PTS'] / stats['GP']) if stats['GP'] > 0 else 0.0,
+                'athleteRPG': safe_float(stats['REB'] / stats['GP']) if stats['GP'] > 0 else 0.0,
+                'athleteAPG': safe_float(stats['AST'] / stats['GP']) if stats['GP'] > 0 else 0.0,
+                'athleteSPG': safe_float(stats['STL'] / stats['GP']) if stats['GP'] > 0 else 0.0,
+                'athleteAvgFTP': safe_float(sum(stats['FT_PCT']) / len(stats['FT_PCT']) * 100) if stats['FT_PCT'] else 0.0,
+                'athleteAvgTPP': safe_float(sum(stats['FG3_PCT']) / len(stats['FG3_PCT']) * 100) if stats['FG3_PCT'] else 0.0
             }
             TABLE_AVG.put_item(Item=avg_item)
             seasons_written += 1

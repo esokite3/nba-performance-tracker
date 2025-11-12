@@ -64,7 +64,7 @@ function App() {
 
   return (
     <div className="App">
-      <img src={process.env.PUBLIC_URL + '/clippers-logo.png'} alt='Clippers Logo' />
+      <img className="logo-img" src={process.env.PUBLIC_URL + '/clippers-logo.png'} alt='Clippers Logo' />
       <img className="typography" src={process.env.PUBLIC_URL + '/clippers-typo.png'} alt='Clippers Typography' />
       <h1 className="stats-title">STATS TRACKER</h1>
 

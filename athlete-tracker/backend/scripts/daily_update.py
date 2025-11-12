@@ -49,7 +49,9 @@ def update_clippers_data():
         sys.exit(1)
 
     roster = commonteamroster.CommonTeamRoster(
-        team_id=clippers['id'], season=season_string
+        team_id=clippers['id'], 
+        season=season_string,
+        timeout=60
     )
     players = roster.get_data_frames()[0].to_dict('records')
     print(f"Found {len(players)} Clippers players.")

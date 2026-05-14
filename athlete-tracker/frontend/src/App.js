@@ -82,7 +82,10 @@ function App() {
         >
           Search
         </button>
+        <p className="emptyState">Demo Mode: Backend temporarily offline.</p>
+        <p className="emptyState">Project was previously deployed on AWS DynamoDB.</p>
       </form>
+
 
       {playerStats && (
         <div className="player-info">

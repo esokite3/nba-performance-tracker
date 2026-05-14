@@ -55,6 +55,12 @@ span {
   font-size: 1.4rem;
 }
 
+.emptyState {
+  font-size: 1.4rem;
+  color: #666;
+  font-family: "League Spartan", sans-serif;
+}
+
 /* ===== Form Styles ===== */
 form {
   display: flex;

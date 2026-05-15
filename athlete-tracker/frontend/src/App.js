@@ -82,8 +82,10 @@ function App() {
         >
           Search
         </button>
-        <p className="emptyState">Demo Mode: Backend temporarily offline.</p>
-        <p className="emptyState">Project was previously deployed on AWS DynamoDB.</p>
+        <br></br>
+        <p className="emptyState">DEMO MODE: BACKEND TEMPORARILY OFFLINE.</p>
+        <br></br>
+        <p className="emptyState">PROJECT WAS PREVIOUSLY DEPLOYED ON AWS DYNAMODB.</p>
       </form>
 
 
